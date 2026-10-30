@@ -8,6 +8,13 @@ const char* SENHA = "244466666";
 
 WebServer servidorWeb(80);    //* instancia oum objeto para criar um WebServer
 
+void paginaInicial() //* Funcao para gerar a pagina HTML que aparece no navegador
+{
+    String htmlTexto = "Ola mundo!";
+    servidorWeb.send(200, "text/html", htmlTexto);
+}
+
+
 void setup() 
 {
   Serial.begin(115200);
@@ -21,6 +28,16 @@ void setup()
   Serial.printf("Senha: %s\n\r", SENHA);
   Serial.printf("IP: %s\n\r", WiFi.softAPIP().toString().c_str());
   Serial.printf("Mac Address: %s\n\r", WiFi.softAPmacAddress().c_str());
+
+  //ToDo ---- ROTAS ----
+  //? Ensina o servidor qual a funcao chamar dependendo da url que o usuario acessar
+  //? CRUD:          Comando HTTP
+
+  //?       Create | Post;   
+  //?       Read   | GET;   
+  //?       Update | PUT;     
+  //?       Delete | Delete.
+  servidorWeb.on("/", paginaInicial);
 
   servidorWeb.begin();
 }
