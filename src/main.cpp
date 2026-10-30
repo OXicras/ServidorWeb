@@ -10,10 +10,27 @@ WebServer servidorWeb(80);    //* instancia oum objeto para criar um WebServer
 
 void paginaInicial() //* Funcao para gerar a pagina HTML que aparece no navegador
 {
-    String htmlTexto = "Ola mundo!";
+    String status = "Desligado";
+    String htmlTexto = 
+    "<meta name ='viewport' content='width-device-width'>"
+    "<p>LED: <b>"+ status +"</b></p>"
+    "<a href='/on'><button>LIGAR</button></a>"
+    "<a href='/off'><button>DESLIGAR</button></a>";
+
     servidorWeb.send(200, "text/html", htmlTexto);
 }
 
+void ligar()
+{
+  rgbLedWrite(48,255, 0, 0);
+  paginaInicial();  
+}
+
+void desligar()
+{
+    rgbLedWrite(48, 0, 0, 0);
+    paginaInicial();
+}
 
 void setup() 
 {
@@ -38,7 +55,10 @@ void setup()
   //?       Update | PUT;     
   //?       Delete | Delete.
   servidorWeb.on("/", paginaInicial);
+  servidorWeb.on("/on", ligar);
+  servidorWeb.on("/off", desligar);
 
+  //* coloca o servidor no ar para comecar a receber conexoes
   servidorWeb.begin();
 }
 
