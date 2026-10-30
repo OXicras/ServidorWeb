@@ -10,7 +10,7 @@ WebServer servidorWeb(80);    //* instancia oum objeto para criar um WebServer
 
 void paginaInicial() //* Funcao para gerar a pagina HTML que aparece no navegador
 {
-    String status = "Desligado";
+    String status = digitalRead(48)? "Ligado" : "Desligado";
     String htmlTexto = 
     "<meta name ='viewport' content='width-device-width'>"
     "<p>LED: <b>"+ status +"</b></p>"
